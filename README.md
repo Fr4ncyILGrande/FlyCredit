@@ -30,3 +30,12 @@ Server owners choose which **LuckPerms groups** can receive credit, including ra
 FlyCredit requires [**GriefDefender**](https://www.spigotmc.org/resources/1-12-2-26-3-griefdefender-claim-plugin-grief-prevention-protection.68900/), [**LuckPerms**](https://modrinth.com/plugin/luckperms), and [**PlayTimeManager**](https://modrinth.com/plugin/playtimemanager).
 
 Administrators can grant or adjust credit in minutes. Balances and transfers are stored locally in **SQLite**.
+
+<p align="center">
+  <a href="https://discord.gg/Zn5d9d2pBU" target="_blank">
+    <img src="https://i.ibb.co/8Dh71sx0/Discord-logo.png" alt="Discord" width="300">
+  </a>
+</p>
+<p align="center">
+  <em>Join the Discord if you have any questions or need support!</em>
+</p>
