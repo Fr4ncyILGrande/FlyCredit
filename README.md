@@ -27,6 +27,6 @@ Server owners choose which **LuckPerms groups** can receive credit, including ra
 
 ## Server requirements
 
-FlyCredit is a server-side plugin for **Paper or Purpur 26.3** running **Java 25**. It requires [**GriefDefender**](https://www.spigotmc.org/resources/1-12-2-26-3-griefdefender-claim-plugin-grief-prevention-protection.68900/), [**LuckPerms**](https://modrinth.com/plugin/luckperms), and [**PlayTimeManager**](https://modrinth.com/plugin/playtimemanager).
+FlyCredit requires [**GriefDefender**](https://www.spigotmc.org/resources/1-12-2-26-3-griefdefender-claim-plugin-grief-prevention-protection.68900/), [**LuckPerms**](https://modrinth.com/plugin/luckperms), and [**PlayTimeManager**](https://modrinth.com/plugin/playtimemanager).
 
 Administrators can grant or adjust credit in minutes. Balances and transfers are stored locally in **SQLite**.
