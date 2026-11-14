@@ -1,0 +1,28 @@
+name: FlyCredit
+version: 1.0.0
+main: it.flycredit.FlyCreditPlugin
+api-version: '26.3'
+description: Spend flight credits to fly in your own claims or in claims where you’re trusted.
+depend: [GriefDefender, LuckPerms, PlayTimeManager]
+commands:
+  flycredit:
+    description: Saldo, volo, trasferimenti e amministrazione FlyCredit
+    aliases: [fc]
+  claimfly:
+    description: Attiva o disattiva il volo nei claim propri o con trust/permissiontrust
+  flycreditinfo:
+    description: Mostra il credito disponibile
+  flycreditadd:
+    description: Aggiunge minuti di credito (amministratore)
+  flycreditset:
+    description: Imposta il credito disponibile (amministratore)
+permissions:
+  flycredit.use:
+    description: Usa il proprio credito per volare
+    default: true
+  flycredit.pay:
+    description: Cede il proprio credito a un destinatario abilitato
+    default: true
+  flycredit.admin:
+    description: Gestisce i saldi e legge le informazioni altrui; non aggira claim o rank
+    default: op
