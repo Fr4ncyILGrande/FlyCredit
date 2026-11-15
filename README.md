@@ -20,11 +20,11 @@ Server owners choose which **LuckPerms groups** can receive credit, including ra
 ## Player commands
 
 | Command | What it does |
-|---|---|
+| --- | --- |
 | `/claimfly` | Start or end a flight session. |
-| `/flycredit <minutes>` | Reserve the number of minutes you choose from your balance and start a flight session. |
-| `/flycredit info` | Check your balance, flight usage, transfers, and available PlayTimeManager playtime. |
-| `/flycredit give <player> <minutes>`  | Give some of your available credit to an eligible online player. |
+| `/flycredit <minutes>` | Reserve the number of minutes you choose<br> from your balance and start a flight session. |
+| `/flycredit info` | Check your balance, flight usage, transfers,<br> and available PlayTimeManager playtime. |
+| `/flycredit give <player> <minutes>` | Give some of your available credit<br> to an eligible online player. |
 
 ## Server requirements
 
