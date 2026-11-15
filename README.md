@@ -1,3 +1,4 @@
+![FlyCredit](https://cdn.modrinth.com/data/TjurmNm3/images/03c32fbde7c369fd902946b6d8b18c985ed74f4d.png)
 # FlyCredit
 
 Reach the roof of your next build, work on a friend’s tower, or give another player a few minutes in the air. FlyCredit brings timed flight to GriefDefender claims on Paper and Purpur. Your balance lasts across sessions, and you spend it only while you’re actually flying.
