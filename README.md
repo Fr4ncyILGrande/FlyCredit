@@ -14,7 +14,7 @@ If flight ends in midair, you have a short window to land safely. By default, th
 
 `/flycredit give Alex 5` transfers five minutes from your balance to Alex. Both players receive a chat confirmation showing how much time changed hands.
 
-Server owners choose which **LuckPerms groups** can receive credit, including ranks awarded through **PlayTimeManager**. The default recipient groups are `cercatore` and `elite`, with direct membership required. A separate permission controls who can give credit.
+Server owners choose which **LuckPerms groups** can receive credit, including ranks awarded through **PlayTimeManager**. On a fresh installation, the recipient list is empty. To enable transfers, add your server’s LuckPerms groups to `transfer.allowed-recipient-groups` in `plugins/FlyCredit/config.yml` and restart the server. By default, players must be direct members of a listed group to receive credit. The `flycredit.pay` permission controls who can give credit.
 
 ## Player commands
 
@@ -23,7 +23,7 @@ Server owners choose which **LuckPerms groups** can receive credit, including ra
 | `/claimfly` | Start or end a flight session. |
 | `/flycredit 10` | Reserve ten minutes from your balance for one session. |
 | `/flycredit info` | Check your balance, flight usage, transfers, and available PlayTimeManager playtime. |
-| `/flycredit give <player> <minutes>` | Give some of your available credit to an eligible online player. |
+| `/flycredit give <player> <minutes>`  | Give some of your available credit to an eligible online player. |
 
 ## Server requirements
 
