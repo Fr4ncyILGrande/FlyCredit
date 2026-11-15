@@ -1,0 +1,24 @@
+# FlyCredit 1.0.0 — Paper / Purpur 26.3, Java 25
+transfer:
+  # Inserisci i nomi dei gruppi LuckPerms del tuo server che possono ricevere credito.
+  # Lista vuota: il volo rimane disponibile e i trasferimenti tra giocatori sono disattivati.
+  # Dopo aver modificato la lista riavvia il server.
+  # Per inviare si usa il permesso flycredit.pay (predefinito per tutti).
+  allowed-recipient-groups: []
+  # DIRECT: il destinatario deve avere direttamente uno di questi gruppi.
+  # INHERITED: include i gruppi ereditati (può ammettere anche rank superiori).
+  membership: DIRECT
+flight:
+  bossbar: true
+  # Una sola caduta per sessione. Al primo atterraggio termina anche Caduta lenta.
+  # Il tempo residuo riprende dopo un'uscita o un riavvio.
+  fall-protection-seconds: 15
+storage:
+  # Scrittura asincrona dei consumi; trasferimenti e prenotazioni sono transazioni.
+  checkpoint-ticks: 20
+# Il volo richiede proprietà UUID oppure trust personale BUILDER o MANAGER nel claim.
+# I subclaim rispettano l'ereditarietà di GriefDefender.
+# Trust pubblici, di gruppo o di clan non bastano in questa versione.
+# Accessor/container/resident da soli non bastano; nessun bypass OP/admin.
+# A terra, fuori dai claim autorizzati e offline il tempo non viene consumato.
+# PlayTimeManager resta titolare delle ore di gioco e delle promozioni.
