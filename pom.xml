@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>it.flycredit</groupId><artifactId>flycredit</artifactId><version>1.0.0</version>
+  <name>FlyCredit</name>
+  <description>Spend flight credits to fly in your own claims or in claims where you’re trusted.</description>
+  <properties>
+    <maven.compiler.release>25</maven.compiler.release>
+    <mockito.version>5.18.0</mockito.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <paper.version>26.3.build.230-stable</paper.version>
+    <build.variant>clean</build.variant>
+    <project.build.outputTimestamp>2026-11-13T00:00:00Z</project.build.outputTimestamp>
+  </properties>
+  <repositories>
+    <repository><id>papermc</id><url>https://repo.papermc.io/repository/maven-public/</url></repository>
+    <repository><id>griefdefender</id><url>https://repo.glaremasters.me/repository/bloodshot/</url></repository>
+  </repositories>
+  <dependencies>
+    <dependency><groupId>io.papermc.paper</groupId><artifactId>paper-api</artifactId><version>${paper.version}</version><scope>provided</scope></dependency>
+    <dependency><groupId>com.griefdefender</groupId><artifactId>api</artifactId><version>2.1.1-20240919.001655-1</version><scope>provided</scope><exclusions><exclusion><groupId>*</groupId><artifactId>*</artifactId></exclusion></exclusions></dependency>
+    <dependency><groupId>org.yaml</groupId><artifactId>snakeyaml</artifactId><version>2.2</version><scope>provided</scope></dependency>
+    <dependency><groupId>net.luckperms</groupId><artifactId>api</artifactId><version>5.4</version><scope>provided</scope></dependency>
+    <dependency><groupId>org.xerial</groupId><artifactId>sqlite-jdbc</artifactId><version>3.50.3.0</version><scope>provided</scope><exclusions><exclusion><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId></exclusion></exclusions></dependency>
+    <dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><version>5.12.2</version><scope>test</scope></dependency>
+    <dependency><groupId>org.mockito</groupId><artifactId>mockito-core</artifactId><version>${mockito.version}</version><scope>test</scope></dependency>
+  </dependencies>
+  <build>
+    <finalName>FlyCredit-${project.version}-${build.variant}</finalName>
+    <resources><resource><directory>src/main/resources</directory><filtering>false</filtering></resource></resources>
+    <plugins>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-resources-plugin</artifactId><version>3.3.1</version></plugin>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-jar-plugin</artifactId><version>3.4.2</version><configuration><forceCreation>true</forceCreation></configuration></plugin>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-clean-plugin</artifactId><version>3.4.1</version><executions><execution><id>remove-stale-seed</id><phase>initialize</phase><goals><goal>clean</goal></goals><configuration><excludeDefaultDirectories>true</excludeDefaultDirectories><filesets><fileset><directory>${project.build.outputDirectory}/seed</directory></fileset></filesets></configuration></execution></executions></plugin>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.14.1</version></plugin>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-surefire-plugin</artifactId><version>3.5.3</version><configuration><argLine>-javaagent:"${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar" -Djava.io.tmpdir=${java.io.tmpdir} -Dnet.bytebuddy.experimental=true</argLine></configuration></plugin>
+      <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-shade-plugin</artifactId><version>3.6.1</version><executions><execution><phase>package</phase><goals><goal>shade</goal></goals><configuration>
+        <createDependencyReducedPom>false</createDependencyReducedPom>
+        <filters><filter><artifact>*:*</artifact><excludes><exclude>META-INF/*.SF</exclude><exclude>META-INF/*.RSA</exclude><exclude>META-INF/*.DSA</exclude><exclude>module-info.class</exclude><exclude>META-INF/versions/*/module-info.class</exclude></excludes></filter></filters>
+        <transformers><transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/></transformers>
+      </configuration></execution></executions></plugin>
+    </plugins>
+  </build>
+  <profiles><profile><id>with-player-data</id><properties><build.variant>with-player-data</build.variant></properties><build><resources>
+    <resource><directory>src/main/resources</directory></resource>
+    <resource><directory>private-seed</directory></resource>
+  </resources><plugins><plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-enforcer-plugin</artifactId><version>3.5.0</version><executions><execution><id>require-private-seed</id><phase>validate</phase><goals><goal>enforce</goal></goals><configuration><rules><requireFilesExist><files><file>${project.basedir}/private-seed/seed/variables.csv</file></files></requireFilesExist></rules></configuration></execution></executions></plugin></plugins></build></profile></profiles>
+</project>
