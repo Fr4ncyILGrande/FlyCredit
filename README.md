@@ -6,7 +6,7 @@ Reach the roof of your next build, work on a friend’s tower, or give another p
 
 ## Fly where you’re trusted
 
-Use `/flycredit <minutes>` to choose how much time to reserve and take off in **Survival** or **Adventure**. You can fly in your own claims and in another player’s claim when they’ve personally granted you **trust** (`BUILDER`) or **permissiontrust** (`MANAGER`). Subclaims follow GriefDefender’s inheritance settings. The same rules apply to operators, and flight is restricted to player claims.
+Use `/flycredit <minutes>` to choose how much time to reserve and take off in **Survival** or **Adventure**. You can fly in your own claims and in another player’s claim when they’ve personally granted you **trust** (`BUILDER`) or **permissiontrust** (`MANAGER`). Subclaims follow GriefDefender’s inheritance settings.
 
 You can fly straight from your own build to a trusted neighbor’s roof in the same session. FlyCredit checks your destination when you cross into another block or teleport. If you enter an area where you can’t fly or the owner revokes your trust, the session ends and your unused time returns to your balance.
 
