@@ -1,0 +1,27 @@
+name: FlyCredit
+version: 1.0.0
+author: Fr4ncyILGrande
+main: it.flycredit.FlyCreditPlugin
+api-version: '26.3'
+description: Spend flight credits to fly in your own claims or in claims where you’re trusted.
+depend: [GriefDefender, LuckPerms, PlayTimeManager]
+commands:
+  flycredit:
+    description: Manage flight sessions, balances, and credit transfers
+    aliases: [fc]
+  flycreditinfo:
+    description: Show your available flight credit
+  flycreditadd:
+    description: Add flight credit to a player’s balance (admin)
+  flycreditset:
+    description: Set a player’s available flight credit (admin)
+permissions:
+  flycredit.use:
+    description: Use flight credit to fly
+    default: true
+  flycredit.pay:
+    description: Give flight credit to an eligible player
+    default: true
+  flycredit.admin:
+    description: Manage balances and view other players’ information. Claim and group restrictions still apply.
+    default: op
