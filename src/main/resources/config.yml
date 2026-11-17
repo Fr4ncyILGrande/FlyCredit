@@ -1,0 +1,24 @@
+# FlyCredit 1.0.0 — Paper / Purpur 26.3, Java 25
+transfer:
+  # LuckPerms groups that may receive credit through /flycredit give.
+  # An empty list disables transfers. Players can still use their own flight credit.
+  # Restart the server after changing this list. Giving credit requires flycredit.pay.
+  allowed-recipient-groups: []
+  # DIRECT requires a group assigned directly to the recipient.
+  # INHERITED also accepts groups inherited through LuckPerms.
+  membership: DIRECT
+flight:
+  # Show the remaining session time in a boss bar.
+  bossbar: true
+  # Protect one landing for up to this many seconds. The first landing also ends Slow Falling.
+  # After a logout or restart, only the time left in the protection window resumes.
+  fall-protection-seconds: 15
+storage:
+  # Ticks between asynchronous flight usage saves. Transfers and reservations use transactions.
+  checkpoint-ticks: 20
+# Players can fly in claims they own or where they have personal BUILDER or MANAGER trust.
+# Subclaims follow GriefDefender’s inheritance settings.
+# Public, group, clan, ACCESSOR, CONTAINER, or RESIDENT trust alone does not grant flight.
+# Operators and administrators must meet the same claim requirements.
+# Credit is spent only while flying in an eligible claim.
+# PlayTimeManager tracks playtime and manages rank promotions.
