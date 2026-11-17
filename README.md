@@ -33,7 +33,7 @@ By default, `DIRECT` requires the recipient to be a direct member of a listed gr
 | `/flycredit info`                                   | Check your balance, flight usage, gifts, and playtime. |
 | `/flycredit give \<player> \<minutes>`              | Give flight time to an eligible online player.         |
 
-**Flights and gifts both accept minutes and seconds.** Enter a whole number for minutes. To include seconds, add a period or comma followed by two digits from `00` to `59`. Both `1.54` and `1,54` mean **1 minute and 54 seconds**. Use `0.05` for five seconds.
+**Flights and gifts both accept minutes and seconds.** Enter a whole number for minutes. To include seconds, add a period or comma followed by two digits from `00` to `59`. Both `1.54` and `1,54` mean **1 minute and 54 seconds**.
 
 Commands are always in English. Chat messages and the flight bar follow each player’s Minecraft language, with **Italian for Italian clients** and **English for everyone else**. With `/flycredit info`, players can also see their PlayTimeManager playtime. If a live reading is unavailable, FlyCredit shows the most recent saved reading and its date, when available.
 
