@@ -10,7 +10,9 @@ Use `/flycredit <minutes>` to choose how much time to reserve and take off in Su
 
 Server owners can enable guest flight in `plugins/FlyCredit/config.yml`. The `flight.allowed-trust-types` list starts empty (`[]`). Add the personal GriefDefender trust types you want to accept, then restart the server. 
 
-For example, `[container]` lets a guest fly in a claim where they personally hold that trust type. Subclaims with inheritance enabled also accept qualifying grants from their parent claims.
+> For example, `[container]` lets a guest fly in a claim where they personally hold that trust type. 
+
+Subclaims with inheritance enabled also accept qualifying grants from their parent claims.
 
 You can fly straight from your own build to a trusted neighbor’s roof in the same session. FlyCredit checks your destination when you cross into another block or teleport. If you enter an area where you can’t fly or the owner revokes your trust, the session ends and your unused time returns to your balance.
 
