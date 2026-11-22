@@ -36,7 +36,7 @@ By default, `DIRECT` requires the recipient to be a direct member of a listed gr
 
 | Command | What it does |
 | :---: | :--- |
-| `/flycredit` | Show the commands you can use. |
+| `/flycredit` or `/flycredit help` | Show the commands you can use. |
 | `/flycredit <minutes>` | Reserve time and start flying. |
 | `/flycredit off` | End your flight and reclaim unused time. |
 | `/flycredit info` | Check your balance and flight usage. |
