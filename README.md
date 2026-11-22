@@ -39,7 +39,7 @@ By default, `DIRECT` requires the recipient to be a direct member of a listed gr
 | `/flycredit` | Show the commands you can use. |
 | `/flycredit <minutes>` | Reserve time and start flying. |
 | `/flycredit off` | End your flight and reclaim unused time. |
-| `/flycredit info` | Check your balance, flight usage, gifts and playtime. |
+| `/flycredit info` | Check your balance and flight usage. |
 | `/flycredit give <player> <minutes>` | Give flight time to an eligible online player. |
 
 **Flights and gifts both accept minutes and seconds.** Enter a whole number for minutes. To include seconds, add a period or comma followed by two digits from `00` to `59`. Both `1.54` and `1,54` mean **1 minute and 54 seconds**.
@@ -55,7 +55,7 @@ These commands require **`flycredit.admin`**, granted to operators by default.
 | Command | What it does |
 | :---: | :--- |
 | `/flycredit add <player> <minutes>` | Add flight time to a player’s balance. |
-| `/flycredit info <player>` | View a player’s balance and statistics. |
+| `/flycredit info <player>` | View a player’s balance and flight usage. |
 | `/flycredit diagnostics` | Check dependencies, guest flight and gift settings. |
 
 If your server awards flight time as a weekly playtime reward, configure your reward system to run `flycreditadd <player> <minutes>` from the console whenever the reward is due.
