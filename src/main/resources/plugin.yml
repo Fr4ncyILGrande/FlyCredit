@@ -10,7 +10,7 @@ commands:
     description: Manage flight sessions, balances, and credit transfers
     aliases: [fc]
   flycreditinfo:
-    description: Show your available flight credit
+    description: Show available credit and total flight time used
   flycreditadd:
     description: Add flight credit to a player’s balance (admin)
 permissions:

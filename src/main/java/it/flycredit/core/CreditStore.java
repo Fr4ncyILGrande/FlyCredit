@@ -13,6 +13,7 @@ public final class CreditStore implements AutoCloseable {
     public record Account(UUID uuid, String name, long available, long reserved, long used,
                           long sent, long received, Long playtimeTicks, Long playtimeSnapshotAt) {}
     public record Checkpoint(UUID player, UUID session, long remaining, boolean finish) {}
+    public record FlightStats(String name, long available, long used) {}
     public record Observation(UUID player, String name, Long ticks) {}
     @FunctionalInterface private interface SqlWork<T> { T run() throws SQLException; }
 
@@ -87,6 +88,22 @@ public final class CreditStore implements AutoCloseable {
                 Number ticks = (Number) r.getObject("ptm_ticks"), at = (Number) r.getObject("ptm_snapshot_at");
                 return new Account(id, r.getString("name"), r.getLong("available"), r.getLong("reserved"), r.getLong("used"),
                         r.getLong("sent"), r.getLong("received"), ticks == null ? null : ticks.longValue(), at == null ? null : at.longValue());
+            }
+        }
+    }
+    public FlightStats flightStats(UUID player, Checkpoint live) throws SQLException {
+        String query = "SELECT name, available, used, reserved, session_id FROM accounts WHERE uuid=?";
+        try (PreparedStatement statement = db.prepareStatement(query)) {
+            statement.setString(1, player.toString());
+            try (ResultSet row = statement.executeQuery()) {
+                if (!row.next()) return new FlightStats(null, 0, 0);
+                long used = row.getLong("used");
+                if (live != null && player.equals(live.player()) && live.session().toString().equals(row.getString("session_id"))) {
+                    // A checkpoint may already include some or all of the sampled flight time.
+                    long unsaved = Math.max(0, row.getLong("reserved") - live.remaining());
+                    used = Math.addExact(used, unsaved);
+                }
+                return new FlightStats(row.getString("name"), row.getLong("available"), used);
             }
         }
     }

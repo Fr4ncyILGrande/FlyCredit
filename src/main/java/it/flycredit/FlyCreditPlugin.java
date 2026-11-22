@@ -116,9 +116,7 @@ public final class FlyCreditPlugin extends JavaPlugin implements Listener, Fligh
         });
     }
     @Override public void message(CommandSender sender, String key, Object... arguments) {
-        Language language = sender instanceof Player player ? Language.forLocale(player.locale()) : Language.ENGLISH;
-        sender.sendMessage(ChatColor.DARK_AQUA + "FlyCredit" + ChatColor.DARK_GRAY + " » "
-                + ChatColor.GRAY + language.text(key, arguments));
+        Chat.notice(sender, key, arguments);
     }
     public void report(CommandSender sender, Throwable error) {
         Throwable cause = error;

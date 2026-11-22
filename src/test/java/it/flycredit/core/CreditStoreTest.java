@@ -65,6 +65,21 @@ class CreditStoreTest {
         assertEquals(15_000, store.account(a).used());
         assertEquals(0, store.account(a).reserved());
     }
+    @Test void statsNeverDoubleCountASavedCheckpointOrApplyAClosedSessionsSampleToANewFlight() throws Exception {
+        store.addCredit(a, 120_000, "test");
+        store.reserve(a, token, 60_000);
+        var sample = new CreditStore.Checkpoint(a, token, 48_000, false);
+        store.checkpoint(a, token, 50_000, false);
+        assertEquals(12_000, store.flightStats(a, sample).used());
+        store.checkpoint(a, token, 48_000, false);
+        assertEquals(12_000, store.flightStats(a, sample).used());
+        store.checkpoint(a, token, 46_000, true);
+        assertEquals(14_000, store.flightStats(a, sample).used());
+        store.reserve(a, UUID.randomUUID(), 90_000);
+        var stats = store.flightStats(a, sample);
+        assertEquals(14_000, stats.used());
+        assertEquals(16_000, stats.available());
+    }
     @Test void zeroCannotReserveTheWholeBalance() throws Exception {
         store.addCredit(a, 180_000, "test");
         assertThrows(CreditException.class, () -> store.reserve(a, token, 0));

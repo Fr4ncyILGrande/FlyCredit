@@ -18,6 +18,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.MockMakers;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static it.flycredit.ChatOutput.notice;
 
 class LanguageTest {
     @ParameterizedTest
@@ -44,8 +45,9 @@ class LanguageTest {
             assertEquals(argument.matcher(english.getProperty(key)).results().map(m -> m.group()).sorted().toList(),
                     argument.matcher(italian.getProperty(key)).results().map(m -> m.group()).sorted().toList(), key);
             if (key.startsWith("usage.")) {
-                String en = english.getProperty(key), it = italian.getProperty(key);
-                assertEquals(en.substring(en.indexOf('/')), it.substring(it.indexOf('/')), key);
+                String placeholder = "<[^>]+>|\\[[^]]+\\]";
+                assertEquals(english.getProperty(key).replaceAll(placeholder, "#"),
+                        italian.getProperty(key).replaceAll(placeholder, "#"), key);
             }
         }
     }
@@ -56,14 +58,13 @@ class LanguageTest {
         var console = mock(ConsoleCommandSender.class);
         var player = mock(Player.class);
         when(player.locale()).thenReturn(Locale.ITALY, Locale.JAPANESE);
-        plugin.message(player, "help.owner", "Fr4ncyILGrande");
-        plugin.message(player, "help.owner", "Fr4ncyILGrande");
-        plugin.message(console, "help.owner", "Fr4ncyILGrande");
-        verify(player).sendMessage(endsWith(Language.ITALIAN.text("help.owner", "Fr4ncyILGrande")));
-        verify(player).sendMessage(endsWith("Plugin by Fr4ncyILGrande"));
-        verify(console).sendMessage(endsWith("Plugin by Fr4ncyILGrande"));
-        assertEquals("Missing permission: flycredit.use.",
-                new CreditException("command.permission", "flycredit.use").getMessage());
+        plugin.message(player, "command.permission");
+        plugin.message(player, "command.permission");
+        plugin.message(console, "command.permission");
+        verify(player).sendMessage(notice("Non hai accesso a questo comando."));
+        verify(player).sendMessage(notice("You don’t have access to this command."));
+        verify(console).sendMessage(notice("You don’t have access to this command."));
+        assertEquals("You don’t have access to this command.", new CreditException("command.permission").getMessage());
     }
 
     private Properties resources(String path) throws Exception {

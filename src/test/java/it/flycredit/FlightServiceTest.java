@@ -86,7 +86,7 @@ class FlightServiceTest {
             public <T> void persist(DatabaseWorker.Operation<T> op) {
                 database.critical(op).whenComplete((r, e) -> { if (e != null) main.add(() -> failClosed(e)); });
             }
-            public void message(CommandSender p, String key, Object... arguments) {}
+            public void message(CommandSender p, String key, Object... arguments) { Chat.notice(p, key, arguments); }
             public void report(CommandSender p, Throwable e) {
                 if (!(e instanceof CreditException)) failClosed(e);
             }
@@ -108,6 +108,37 @@ class FlightServiceTest {
     }
     CreditStore.Account account() throws Exception { return database.critical(s -> s.account(id)).get(3, TimeUnit.SECONDS); }
     void advance(long millis) { time.addAndGet(millis * 1_000_000L); flight.tick(); }
+    @ParameterizedTest
+    @ValueSource(strings = {"it-IT", "en-US"})
+    void infoUsesTheLiveMeterBeforeItsFirstSaveAndPauseStopsConsumption(String locale) throws Exception {
+        when(player.locale()).thenReturn(Locale.forLanguageTag(locale));
+        flight.start(player, 5_000);
+        flush();
+        var started = ChatOutput.capture(player);
+        String label = locale.startsWith("it") ? "Volo avviato" : "Flight started";
+        assertEquals("FlyCredit » " + label + " · 5s", ChatOutput.plain(started));
+        assertEquals(net.kyori.adventure.text.format.NamedTextColor.GOLD, ChatOutput.part(started, "5s").color());
+        advance(1_150);
+        grounded = true;
+        advance(50);
+        advance(1_800);
+        assertEquals(0, account().used());
+        clearInvocations(player);
+
+        var plugin = mock(FlyCreditPlugin.class, withSettings().mockMaker(MockMakers.INLINE));
+        when(plugin.flight()).thenReturn(flight);
+        when(plugin.database()).thenReturn(database);
+        doAnswer(call -> { main.add(call.getArgument(0, Runnable.class)); return null; }).when(plugin).onMain(any());
+        var command = mock(Command.class);
+        when(command.getName()).thenReturn("flycredit");
+        new FlyCreditCommands(plugin).onCommand(player, command, "flycredit", new String[]{"info"});
+        flush();
+        List<String> lines = ChatOutput.plain(ChatOutput.capture(player)).lines().toList();
+        assertEquals(3, lines.size());
+        assertTrue(lines.get(1).endsWith("55s"));
+        assertTrue(lines.get(2).endsWith("  ·  1s"));
+        assertEquals(0, account().used());
+    }
     @Test void guestFlightRequiresOptInAndRevocationSettlesTheLiveSession() throws Exception {
         var config = new YamlConfiguration();
         config.set(ClaimAccess.TRUST_SETTING, List.of());

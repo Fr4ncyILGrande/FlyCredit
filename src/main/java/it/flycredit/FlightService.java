@@ -80,10 +80,15 @@ public final class FlightService implements Listener {
     public boolean active(UUID id) { return sessions.containsKey(id); }
     public boolean busy(UUID id) { return active(id) || pending.containsKey(id); }
     public long remaining(UUID id) { Session s = sessions.get(id); return s == null ? 0 : s.meter.remainingMillis(); }
+    CreditStore.Checkpoint usageSnapshot(UUID player) {
+        Session session = sessions.get(player);
+        if (session == null) return null;
+        return new CreditStore.Checkpoint(player, session.token, session.meter.remainingMillis(), false);
+    }
     public void start(Player p, long amount) {
         if (amount <= 0 || amount > Amounts.MAX_MILLIS) throw new CreditException("amount.invalid");
         if (busy(p.getUniqueId())) throw new CreditException("flight.busy");
-        if (!p.hasPermission("flycredit.use")) throw new CreditException("command.permission", "flycredit.use");
+        if (!p.hasPermission("flycredit.use")) throw new CreditException("command.permission");
         if (!survival(p)) throw new CreditException("flight.gameModeRequired");
         if (!valid(p, p.getLocation())) throw new CreditException("flight.claimRequired");
         if (p.getAllowFlight()) throw new CreditException("flight.alreadyFlying");
